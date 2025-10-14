@@ -3,10 +3,18 @@ import { Menu, Search, User, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const menuItems = [
-  { label: "Shop by Category", href: "#category" },
-  { label: "Our Story", href: "#story" },
-  { label: "Track Your Order", href: "#track" },
+const categories = [
+  { label: "New Launches\n& Offers", image: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=200&h=200&fit=crop", color: "bg-yellow-200" },
+  { label: "Plant\nProtein", image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=200&h=200&fit=crop", color: "bg-green-200" },
+  { label: "Whey\nProtein", image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=200&h=200&fit=crop", color: "bg-yellow-300" },
+  { label: "All\nProducts", image: "https://images.unsplash.com/photo-1599666515506-a91e2f6a0e88?w=200&h=200&fit=crop", color: "bg-cyan-200" },
+  { label: "Breakfast", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=200&h=200&fit=crop", color: "bg-purple-200" },
+  { label: "Protein", image: "https://images.unsplash.com/photo-1622484211827-f1ea4cee63c2?w=200&h=200&fit=crop", color: "bg-cyan-300" },
+  { label: "Muesli", image: "https://images.unsplash.com/photo-1613926209753-7b2c4f9e7b5c?w=200&h=200&fit=crop", color: "bg-pink-200" },
+  { label: "Bars", image: "https://images.unsplash.com/photo-1519915212116-7cfef71f1d3e?w=200&h=200&fit=crop", color: "bg-orange-200" },
+  { label: "Dry Fruits\n& Seeds", image: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=200&h=200&fit=crop", color: "bg-amber-300" },
+  { label: "Oats &\nQuinoa", image: "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=200&h=200&fit=crop", color: "bg-pink-300" },
+  { label: "Gifting", image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=200&h=200&fit=crop", color: "bg-lime-200" },
 ];
 
 export const Navbar = () => {
@@ -23,19 +31,33 @@ export const Navbar = () => {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-80 bg-accent text-accent-foreground">
-              <div className="flex flex-col gap-6 mt-8">
-                <h2 className="text-2xl font-bold mb-4">Menu</h2>
-                {menuItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="text-lg font-medium hover:text-secondary transition-colors py-2 border-b border-accent-foreground/20"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
+            <SheetContent side="left" className="w-full sm:w-[600px] bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 border-none p-0 overflow-y-auto">
+              <div className="p-6 sm:p-8">
+                <h2 className="text-white text-2xl sm:text-3xl font-bold mb-8 tracking-wide">SHOP BY CATEGORY</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {categories.map((category) => (
+                    <a
+                      key={category.label}
+                      href="#category"
+                      className="group relative bg-[#F5E6D3] rounded-3xl p-6 flex items-center justify-between hover:scale-105 transition-transform duration-300 overflow-hidden"
+                      onClick={() => setOpen(false)}
+                    >
+                      <div className="flex-1 z-10">
+                        <h3 className="text-gray-900 font-bold text-lg leading-tight whitespace-pre-line">
+                          {category.label}
+                        </h3>
+                      </div>
+                      <div className="relative flex-shrink-0 w-24 h-24 ml-4">
+                        <div className={`absolute inset-0 ${category.color} rounded-full scale-150 -z-0`}></div>
+                        <img 
+                          src={category.image} 
+                          alt={category.label.replace('\n', ' ')}
+                          className="relative z-10 w-full h-full object-contain drop-shadow-lg"
+                        />
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
