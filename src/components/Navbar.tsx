@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Menu, Search, User, ShoppingCart } from "lucide-react";
+import { Menu, Search, User, ShoppingCart, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const categories = [
   { label: "New Launches\n& Offers", image: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=200&h=200&fit=crop", color: "bg-yellow-200" },
@@ -19,6 +20,7 @@ const categories = [
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(true);
 
   return (
     <nav className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-lg">
@@ -31,32 +33,62 @@ export const Navbar = () => {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full sm:w-[600px] bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 border-none p-0 overflow-y-auto">
+            <SheetContent side="left" className="w-full max-w-full bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 border-none p-0 overflow-y-auto">
               <div className="p-6 sm:p-8">
-                <h2 className="text-white text-2xl sm:text-3xl font-bold mb-8 tracking-wide">SHOP BY CATEGORY</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {categories.map((category) => (
-                    <a
-                      key={category.label}
-                      href="#category"
-                      className="group relative bg-[#F5E6D3] rounded-3xl p-6 flex items-center justify-between hover:scale-105 transition-transform duration-300 overflow-hidden"
-                      onClick={() => setOpen(false)}
-                    >
-                      <div className="flex-1 z-10">
-                        <h3 className="text-gray-900 font-bold text-lg leading-tight whitespace-pre-line">
-                          {category.label}
-                        </h3>
+                <div className="flex flex-col gap-2">
+                  {/* Shop by Category - Collapsible */}
+                  <Collapsible open={categoryOpen} onOpenChange={setCategoryOpen}>
+                    <CollapsibleTrigger className="w-full">
+                      <div className="flex items-center justify-between w-full py-4 px-2 text-white hover:bg-white/10 rounded-lg transition-colors">
+                        <span className="text-xl sm:text-2xl font-bold tracking-wide">SHOP BY CATEGORY</span>
+                        <ChevronDown className={`h-6 w-6 transition-transform ${categoryOpen ? 'rotate-180' : ''}`} />
                       </div>
-                      <div className="relative flex-shrink-0 w-24 h-24 ml-4">
-                        <div className={`absolute inset-0 ${category.color} rounded-full scale-150 -z-0`}></div>
-                        <img 
-                          src={category.image} 
-                          alt={category.label.replace('\n', ' ')}
-                          className="relative z-10 w-full h-full object-contain drop-shadow-lg"
-                        />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-6">
+                        {categories.map((category) => (
+                          <a
+                            key={category.label}
+                            href="#category"
+                            className="group relative bg-[#F5E6D3] rounded-3xl p-6 flex items-center justify-between hover:scale-105 transition-transform duration-300 overflow-hidden"
+                            onClick={() => setOpen(false)}
+                          >
+                            <div className="flex-1 z-10">
+                              <h3 className="text-gray-900 font-bold text-base sm:text-lg leading-tight whitespace-pre-line">
+                                {category.label}
+                              </h3>
+                            </div>
+                            <div className="relative flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 ml-4">
+                              <div className={`absolute inset-0 ${category.color} rounded-full scale-150 -z-0`}></div>
+                              <img 
+                                src={category.image} 
+                                alt={category.label.replace('\n', ' ')}
+                                className="relative z-10 w-full h-full object-contain drop-shadow-lg"
+                              />
+                            </div>
+                          </a>
+                        ))}
                       </div>
-                    </a>
-                  ))}
+                    </CollapsibleContent>
+                  </Collapsible>
+
+                  {/* Our Story */}
+                  <a
+                    href="#story"
+                    className="w-full py-4 px-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="text-xl sm:text-2xl font-bold tracking-wide">OUR STORY</span>
+                  </a>
+
+                  {/* Track Your Order */}
+                  <a
+                    href="#track"
+                    className="w-full py-4 px-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="text-xl sm:text-2xl font-bold tracking-wide">TRACK YOUR ORDER</span>
+                  </a>
                 </div>
               </div>
             </SheetContent>
