@@ -2,6 +2,16 @@ import { Star, StarHalf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+interface ProductCardProps {
+  image: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  discount?: number;
+  rating: number;
+  reviews: number;
+}
+
 export const ProductCard = ({
   image,
   name,
@@ -10,7 +20,7 @@ export const ProductCard = ({
   discount,
   rating,
   reviews,
-}) => {
+}: ProductCardProps) => {
   const renderStars = () => {
     const stars = [];
     const fullStars = Math.floor(rating);
